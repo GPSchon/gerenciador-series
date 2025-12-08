@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\Season;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Episode extends Model
+{
+    protected $table = 'series.episodes';
+
+    use HasFactory;
+    protected $fillable = ['number'];
+    public $timestamps = false;
+
+    public function Season(){
+        return $this->belongsTo(Season::class);
+    }
+}

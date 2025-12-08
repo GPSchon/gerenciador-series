@@ -1,0 +1,36 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rowList{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.containerButons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: fit-content;
+    width: fit-content;
+
+    gap: 4px;
+}
+
+.fit-content {
+    box-sizing: content-box;
+    width: fit-content;
+    height: fit-content;
+}
+
+.align-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    width: fit-content;
+}
