@@ -1,10 +1,13 @@
-<x-layout title="Temporadas de {{$series->name}}">
+<x-layout title="Temporadas de {{ $series->name }}">
     <ul class="list-group">
         @foreach ($seasons as $season)
             <li class="list-group-item rowList">
-                Temporada {{$season->number}}
+                <a href="{{ route('episode.index', $season->id) }}">
+                    Temporada {{ $season->number }}
+                </a>
                 <span class="badge bg-secondary">
-                    {{$season->Episodes->count()}}
+                    {{ $season->numberWatchedEpisodes() }} /
+                    {{ $season->Episodes->count() }}
                 </span>
 
             </li>

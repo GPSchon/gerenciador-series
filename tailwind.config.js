@@ -3,6 +3,9 @@ export default {
     './resources/**/*.blade.php',
     './resources/**/*.js',
     './resources/**/*.vue',
+    './storage/framework/views/*.php',
+    './app/**/*.php',
+
   ],
   darkMode: 'class', // ou 'media' se preferir
   theme: {

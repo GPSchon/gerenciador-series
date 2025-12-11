@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('series.episodes', function (Blueprint $table) {
             $table->id();
             $table->unsignedTinyInteger('number');
+            $table->boolean('watched');
             $table->foreignId('seasons_id')->constrained('series.seasons')->onDelete('cascade');
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('episodes');
+        Schema::dropIfExists('series.episodes');
     }
 };

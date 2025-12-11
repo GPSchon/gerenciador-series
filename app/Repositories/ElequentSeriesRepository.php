@@ -33,6 +33,7 @@ class ElequentSeriesRepository implements SeriesRepository
                     $episodes[] = [
                         'seasons_id' => $season->id,
                         'number' => $i,
+                        'watched' => false,
                     ];
                 }
             }
