@@ -18,11 +18,11 @@ class SeriesController extends Controller
 
     public function index(Request $request){
         $series = Series::all();
-        $mensagem = session('mensagemSucesso');
+        $mensagem = session('successMessage');
 
         return view('series.index')
             ->with('series', $series)
-            ->with('mensagemSucesso', $mensagem);
+            ->with('successMessage', $mensagem);
     }
 
     public function create(){
@@ -34,13 +34,13 @@ class SeriesController extends Controller
         $series = $this->repository->add($data);
 
 
-        return to_route('series.index')->with('mensagemSucesso', "A série '$series->name' foi adicionada com sucesso!!");
+        return to_route('series.index')->with('successMessage', "A série '$series->name' foi adicionada com sucesso!!");
     }
 
     public function destroy(Series $series, Request $request){
         $series->delete();
 
-        return to_route('series.index')->with('mensagemSucesso', "A série '$series->name' foi removida com sucesso!!");
+        return to_route('series.index')->with('successMessage', "A série '$series->name' foi removida com sucesso!!");
     }
 
     public function edit(Series $series){
@@ -49,7 +49,7 @@ class SeriesController extends Controller
     public function update(SeriesFormRequest $request, Series $series){
         $series->update($request->all());
 
-        return to_route('series.index')->with('mensagemSucesso', "A série '$series->name' foi atualizada com sucesso!!");
+        return to_route('series.index')->with('successMessage', "A série '$series->name' foi atualizada com sucesso!!");
 
     }
 }
