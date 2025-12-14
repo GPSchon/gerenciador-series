@@ -18,4 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/email', function () {
+    return new \App\Mail\SeriesCreated('Bungo Stray Dogs', '3', '24', '2');
+});
+
+
 require __DIR__.'/auth.php';
