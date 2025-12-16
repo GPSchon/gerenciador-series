@@ -9,8 +9,11 @@
         @foreach ($series as $series)
             <li class="list-group-item rowList">
                 @auth
-                    <a href="{{ route('seasons.index', $series->id) }}" class="flex-grow-1 text-decoration-none">
+                    <a href="{{ route('seasons.index', $series->id) }}"
+                        class="d-flex align-items-center flex-grow-1 text-decoration-none gap-2">
                     @endauth
+                    <img src="{{ $series->cover ? asset('storage/' . $series->cover) : asset('img/padrao_formImage.png') }}"
+                        width="100px" class="img-thumbnail" alt="Imagem da capa" />
                     {{ $series->name }}
                     @auth
                     </a>

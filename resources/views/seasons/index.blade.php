@@ -3,6 +3,10 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Temporadas de {{ $series->name }}
         </h2>
+        <div class="d-flex align-center">
+            <image style="height:400px" src="{{ asset('storage/' . $series->cover) }}" class='img-fluid'
+                alt='Imagem da capa' />
+        </div>
     </x-slot>
     <ul class="list-group">
         @foreach ($seasons as $season)

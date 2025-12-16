@@ -16,7 +16,7 @@ class ElequentSeriesRepository implements SeriesRepository
     public function add(SeriesData $data): Series
     {
         return DB::transaction(function () use ($data) {
-            $series = Series::create(['name' => $data->name]);
+            $series = Series::create(['name' => $data->name, 'cover' => $data->cover]);
 
             $seasons = [];
             for ($i = 1; $i <= $data->seasonQty; $i++) {

@@ -4,5 +4,5 @@
             Cadastro de Séries
         </h2>
     </x-slot>
-    <x-series.form :action="route('series.store')" :name="old('name')" :update="false" />
+    <x-series.form :action="route('series.store')" :name="old('name')" />
 </x-app-layout>
