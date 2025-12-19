@@ -56,11 +56,19 @@
                 @endauth
 
                 @guest
-                    <!-- Link de login só aparece se não estiver na tela de login -->
-                    @if (!request()->routeIs('login'))
-                        <a href="{{ route('login') }}" class="navbar-brand mb-0 h1">Entrar</a>
-                    @endif
+                    <div class="mt-3 flex space-x-4">
+                        @if (!request()->routeIs('login'))
+                            <x-responsive-nav-link :href="route('login')">
+                                {{ __('Entrar') }}
+                            </x-responsive-nav-link>
+                        @endif
+
+                        <x-responsive-nav-link :href="route('register')">
+                            {{ __('Cadastrar') }}
+                        </x-responsive-nav-link>
+                    </div>
                 @endguest
+
             </div>
 
             <!-- Hamburger (mobile) -->

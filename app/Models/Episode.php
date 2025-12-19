@@ -14,6 +14,9 @@ class Episode extends Model
     use HasFactory;
     protected $fillable = ['number'];
     public $timestamps = false;
+    protected $casts = [
+        'watched' => 'boolean'
+    ];
 
     public function Season(){
         return $this->belongsTo(Season::class);

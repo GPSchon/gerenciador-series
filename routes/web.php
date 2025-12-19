@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return to_route('series.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+});
 
 Route::get('/dashboard', function () {
     return to_route('series.index');

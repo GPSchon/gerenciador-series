@@ -4,10 +4,13 @@
             Lista de Séries
         </h2>
     </x-slot>
-    <a href="{{ route('series.create') }}" class="btn btn-dark mb-2">Adicionar</a>
-    <ul class="list-group">
+    @auth
+        <a href="{{ route('series.create') }}" class="btn btn-dark mb-2">Adicionar</a>
+    @endauth
+
+    <ul class="list-group gap-1">
         @foreach ($series as $series)
-            <li class="list-group-item rowList">
+            <li class="list-group-item d-flex align-items-center gap-2 @auth rowList @endauth">
                 @auth
                     <a href="{{ route('seasons.index', $series->id) }}"
                         class="d-flex align-items-center flex-grow-1 text-decoration-none gap-2">

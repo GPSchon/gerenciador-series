@@ -21,6 +21,16 @@ class SeriesFormRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->isMethod('patch')) {
+            // Atualização parcial: só valida se o campo vier
+            return [
+                'name'    => ['sometimes', 'string', 'min:3'],
+                'season'  => ['sometimes', 'integer', 'min:1'],
+                'episode' => ['sometimes', 'integer', 'min:1'],
+                'cover'   => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            ];
+        }
+
         return [
             'name'    => ['required', 'string', 'min:3'],
             'season'  => ['required', 'integer', 'min:1'],

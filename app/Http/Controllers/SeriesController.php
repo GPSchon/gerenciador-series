@@ -6,6 +6,7 @@ use App\Models\Series;
 use App\DTO\SeriesData;
 use Illuminate\Http\Request;
 use App\Events\SeriesCreated;
+use App\Services\UploadService;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +17,7 @@ use App\Http\Requests\SeriesFormRequest;
 
 class SeriesController extends Controller
 {
-    public function __construct(private SeriesRepository $repository){
+    public function __construct(private SeriesRepository $repository,private UploadService $uploadService){
 
     }
 
@@ -37,7 +38,7 @@ class SeriesController extends Controller
         $coverPath = null;
 
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
-            $coverPath = $request->file('cover')->store('path_cover', 'public');
+            $coverPath = $this->uploadService->handle($request->file('cover'), 'path_cover');
         }
 
         $validated = $request->validated();
@@ -58,7 +59,7 @@ class SeriesController extends Controller
 
     public function destroy(Series $series, Request $request){
         if ($series->cover) {
-            Storage::disk('public')->delete($series->cover);
+            $this->uploadService->delete($series->cover);
         }
         $series->delete();
 
@@ -69,13 +70,11 @@ class SeriesController extends Controller
         return view('series.edit')->with('series', $series);
     }
     public function update(SeriesFormRequest $request, Series $series){
-        $data = $request->all();
+        $data = $request->validated();
         if ($request->hasFile('cover')) {
-            if ($series->cover) {
-                Storage::disk('public')->delete($series->cover);
-            }
+            $oldPath = $series->cover ? $series->cover : null;
 
-            $data['cover'] = $request->file('cover')->store('path_cover', 'public');
+            $data['cover'] = $this->uploadService->handle($request->file('cover'), 'path_cover', $oldPath);
         }
 
         $series->update($data);
