@@ -27,7 +27,7 @@ class SeriesFormRequest extends FormRequest
                 'name'    => ['sometimes', 'string', 'min:3'],
                 'season'  => ['sometimes', 'integer', 'min:1'],
                 'episode' => ['sometimes', 'integer', 'min:1'],
-                'cover'   => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+                'cover'   => ['sometimes', 'nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
             ];
         }
 

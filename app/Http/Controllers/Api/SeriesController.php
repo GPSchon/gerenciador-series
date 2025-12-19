@@ -10,7 +10,6 @@ use App\Events\SeriesCreated;
 use App\Services\UploadService;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Http;
 use App\Repositories\SeriesRepository;
 use App\Http\Requests\SeriesFormRequest;
 
@@ -20,22 +19,26 @@ class SeriesController extends Controller
 
     }
 
-    public function index()
+    public function index(SeriesFormRequest $request)
     {
-        $series = Series::all();
+        $query = Series::query();
 
-        return $series;
+        if($request->has('nome')){
+            $query->where('name',$request->nome);
+        }
+
+        return $query->paginate(5);
     }
 
     public function show(int $id){
         $series = Series::with('Seasons.Episodes')->find($id);
         if($series === null){
-            return response()-json(['message' => 'Serie não encontrada'], 404);
+            return response()->json(['message' => 'Serie não encontrada'], 404);
         }
         return response()->json($series,200);
     }
 
-    public function store(SeriesFormRequest $request, UploadService $uploadService)
+    public function store(SeriesFormRequest $request)
     {
         //dd($request->validated());
         try {
@@ -43,7 +46,7 @@ class SeriesController extends Controller
 
             if ($request->hasFile('cover')) {
 
-                $coverPath = $uploadService->handle($request->file('cover'),'series-cover');
+                $coverPath = $this->uploadService->handle($request->file('cover'),'series-cover');
                 $validated['cover'] = $coverPath;
             }
 
@@ -70,7 +73,7 @@ class SeriesController extends Controller
 
     public function update(SeriesFormRequest $request, Series $series)
     {
-        $series->fill($request->all());
+        $series->fill($request->validated());
         if ($request->hasFile('cover')) {
                 $oldPath = $series->cover ? $series->cover : null;
                 $coverPath = $this->uploadService->handle($request->file('cover'),'series-cover', $oldPath);
